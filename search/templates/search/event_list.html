@@ -1,0 +1,49 @@
+{% extends 'search/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <h1>Events</h1>
+        {% for i in event_list %}
+        <div class="card">
+            <div class="card-header">
+              {{ i }}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Venue: {{ i.venue }}</h5>
+              <p class="card-text">
+                <ul>
+                    <li>Date: {{ i.event_date }}</li>
+                    <li>Venue: {{ i.venue.address }}</li>
+                    <li>Manager: {{ i.manager }}</li>
+                    <li>Description: {{ i.description }}</li>
+                    <li>Attendees:<br/>
+                        {% for j in i.attendees.all %}
+                        {{ j }}<br/>
+                        {% endfor %}
+                    </li>
+                </ul>
+              </p>
+              {% if user.is_authenticated %}
+                {% if user == i.manager %}
+                    <div class="card-footer text-muted">
+                        <a href="{% url 'update-event' i.id %}"
+                        class="btn btn-outline-secondary btn-sm">Update</a>
+                        <a href="{% url 'delete-event' i.id %}"
+                        class="btn btn-outline-danger btn-sm">Delete</a>
+                    </div>
+                {% endif %}
+              {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    {% endblock %}
+</body>
+</html>

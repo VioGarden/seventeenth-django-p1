@@ -1,0 +1,31 @@
+{% extends 'search/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% comment %} 'name', 'address', 'zip_code', 'phone', 'web', 'email_address' {% endcomment %}
+    {% block content %}
+        <div class="card">
+            <div class="card-header">
+                <strong>Venue</strong>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ venue }}</h5>
+              <p class="card-text">
+                <li>{{ venue.address }}</li>
+                <li>{{ venue.zip_code }}</li>
+                <li>{{ venue.phone }}</li>
+                <li>{{ venue.email_address }}</li>
+                <li>{{ venue.web }}</li>
+              </p>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>

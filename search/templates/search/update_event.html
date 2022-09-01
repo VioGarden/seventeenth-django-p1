@@ -1,0 +1,44 @@
+{% extends 'search/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    {% if user.is_authenticated %}
+        {% if user == up_event.manager %}
+            <h1>Update Event...</h1>
+            Logged In User: {{ user }}
+            <br/>
+            Event Manager: {{ up_event.manager }}
+            <br/>
+            <form action="" method=POST>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br/>
+                <input 
+                type="submit" 
+                value="Update"
+                class="btn btn-secondary"
+                >
+            </form>
+        {% else %}
+            <h2>Access Denied</h2>
+            <p>Only Event Manager Can Access Event</p>
+            Logged In User: {{ user }}
+            <br/>
+            Event Manager: {{ up_event.manager }}
+            <br/>
+        {% endif %}
+    {% else %}
+    <h1>Sorry! You Must Be Logged In To See This Page...</h1>
+    <a href="{% url 'login-user' %}">Login Here</a>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>
